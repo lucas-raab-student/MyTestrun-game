@@ -8,11 +8,13 @@ public class CharactsdMovement : MonoBehaviour
     public float MoveSpeed = 5f;        // Walking speed
     public float runSpeed = 10f;        // Running speed
     private Vector3 MoveDirection;
+    private StaminaSystem staminaSystem;
 
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        staminaSystem = GetComponent<StaminaSystem>();
     }
 
     // Update is called once per frame
@@ -22,13 +24,12 @@ public class CharactsdMovement : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");  // W/S or Arrow Up/Down
         float rightInput = Input.GetAxis("Horizontal");  // A/D or Arrow Left/Right
 
-        // Debugging movement input
 
         // Add movement input (calculated in the method below)
         AddMoveInput(forwardInput, rightInput);
 
         // Check if the player is holding down shift (to run)
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        bool isRunning = Input.GetKey(KeyCode.LeftShift)&& staminaSystem.UseStamina(20f*Time.deltaTime);
 
       
 
